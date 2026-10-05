@@ -68,8 +68,12 @@ public class VoIPHelper {
 
 	private static final int VOIP_SUPPORT_ID = 4244000;
 
+	private static boolean callsRemoved() {
+		return true;
+	}
+
 	public static void startCall(TLRPC.User user, boolean videoCall, boolean canVideoCall, final Activity activity, TLRPC.UserFull userFull, AccountInstance accountInstance) {
-		return; // Calls removed in StarChat
+		if (callsRemoved()) return;
 		if (userFull != null && userFull.phone_calls_private) {
 			new AlertDialog.Builder(activity)
 					.setTitle(LocaleController.getString("VoipFailed", R.string.VoipFailed))
@@ -123,7 +127,7 @@ public class VoIPHelper {
 	}
 
 	public static void startCall(TLRPC.Chat chat, TLRPC.InputPeer peer, String hash, boolean createCall, Boolean checkJoiner, Activity activity, BaseFragment fragment, AccountInstance accountInstance) {
-		return; // Group calls removed in StarChat
+		if (callsRemoved()) return;
 		if (activity == null) {
 			return;
 		}
@@ -752,7 +756,7 @@ public class VoIPHelper {
 	}
 
     public static void showGroupCallAlert(BaseFragment fragment, TLRPC.Chat currentChat, TLRPC.InputPeer peer, boolean recreate, AccountInstance accountInstance) {
-		return; // Group calls removed in StarChat
+		if (callsRemoved()) return;
 		if (fragment == null || fragment.getParentActivity() == null) {
 			return;
 		}
