@@ -39,15 +39,15 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Set up Android SDK / NDK / CMake
-        uses: android-actions/setup-android@v3
-        with:
-          packages: |
-            platforms;android-33
-            build-tools;33.0.0
-            build-tools;30.0.3
-            ndk;21.4.7075529
-            cmake;3.10.2.4988404
+      - name: Install Android SDK / NDK / CMake
+        run: |
+          SDKM="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          yes | "$SDKM" --licenses >/dev/null || true
+          "$SDKM" \
+            "platforms;android-33" \
+            "build-tools;33.0.0" \
+            "ndk;21.4.7075529" \
+            "cmake;3.10.2.4988404"
 
       - name: Switch to JDK 11 (proven for Gradle 7.2 / AGP 7.0.3)
         uses: actions/setup-java@v4
@@ -55,13 +55,11 @@ jobs:
           distribution: temurin
           java-version: '11'
 
-      - name: Point NDK path and restore legacy dx
+      - name: Point NDK path and expose yasm
         run: |
           ln -sfn "$ANDROID_HOME/ndk/21.4.7075529" "$NDK"
           mkdir -p "$NDK/prebuilt/linux-x86_64/bin"
           ln -sf /usr/bin/yasm "$NDK/prebuilt/linux-x86_64/bin/yasm"
-          cp "$ANDROID_HOME/build-tools/30.0.3/dx" "$ANDROID_HOME/build-tools/33.0.0/dx"
-          cp "$ANDROID_HOME/build-tools/30.0.3/lib/dx.jar" "$ANDROID_HOME/build-tools/33.0.0/lib/dx.jar"
 
       - name: Initialize native submodules (shallow)
         run: |
