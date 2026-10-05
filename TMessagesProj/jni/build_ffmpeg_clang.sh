@@ -32,8 +32,8 @@ function build_one {
 	--nm=${NM} \
 	--ar=${AR} \
 	--strip=${STRIP} \
-	--cc=${CC} \
-	--cxx=${CXX} \
+	--cc="$CC" \
+	--cxx="$CXX" \
 	--enable-stripping \
 	--arch=$ARCH \
 	--target-os=linux \
