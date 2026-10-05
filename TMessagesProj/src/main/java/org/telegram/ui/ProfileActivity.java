@@ -9663,10 +9663,7 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                     editItemVisible = true;
                 }
 
-                if (userInfo != null && userInfo.phone_calls_available) {
-                    callItemVisible = true;
-                    videoCallItemVisible = Build.VERSION.SDK_INT >= 18 && userInfo.video_calls_available;
-                }
+                // Calls removed in StarChat: profile call buttons stay hidden.
                 if (isBot || getContactsController().contactsDict.get(userId) == null) {
                     if (MessagesController.isSupportUser(user)) {
                         if (userBlocked) {
@@ -9737,15 +9734,12 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                     }
                 }
                 if (chatInfo != null) {
-                    if (ChatObject.canManageCalls(chat) && chatInfo.call == null) {
-                        otherItem.addSubItem(call_item, R.drawable.msg_voicechat, chat.megagroup && !chat.gigagroup ? LocaleController.getString("StartVoipChat", R.string.StartVoipChat) : LocaleController.getString("StartVoipChannel", R.string.StartVoipChannel));
-                        hasVoiceChatItem = true;
-                    }
+                    // Voice chats removed in StarChat.
                     if ((chatInfo.can_view_stats || getMessagesController().getStoriesController().canPostStories(getDialogId())) && topicId == 0) {
                         otherItem.addSubItem(statistics, R.drawable.msg_stats, LocaleController.getString("Statistics", R.string.Statistics));
                     }
                     ChatObject.Call call = getMessagesController().getGroupCall(chatId, false);
-                    callItemVisible = call != null;
+                    callItemVisible = false; // group calls removed in StarChat
                 }
                 if (chat.megagroup) {
                     if (chatInfo == null || !chatInfo.participants_hidden || ChatObject.hasAdminRights(chat)) {
@@ -9774,12 +9768,9 @@ public class ProfileActivity extends BaseFragment implements NotificationCenter.
                 }
             } else {
                 if (chatInfo != null) {
-                    if (ChatObject.canManageCalls(chat) && chatInfo.call == null) {
-                        otherItem.addSubItem(call_item, R.drawable.msg_voicechat, LocaleController.getString("StartVoipChat", R.string.StartVoipChat));
-                        hasVoiceChatItem = true;
-                    }
+                    // Voice chats removed in StarChat.
                     ChatObject.Call call = getMessagesController().getGroupCall(chatId, false);
-                    callItemVisible = call != null;
+                    callItemVisible = false; // group calls removed in StarChat
                 }
                 if (ChatObject.canChangeChatInfo(chat)) {
                     editItemVisible = true;

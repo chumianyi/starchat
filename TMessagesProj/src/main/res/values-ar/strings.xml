@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="AppName">تيليجرام</string>
-    <string name="AppNameBeta">Telegram Beta</string>
+    <string name="AppNameBeta">星聊 Beta</string>
     <string name="LanguageName">العربية</string>
     <string name="English">الإنجليزية</string>
     <string name="LanguageNameInEnglish">Arabic</string>
@@ -1882,13 +1882,13 @@
     <string name="LanguageUnknownCustomAlert">للأسف، لا تحتوي حزمة اللغة المخصصةُ هذه (**%1$s **) على بيانات لتيليجرام للأندرويد.</string>
     <string name="AskAQuestionInfo">نرجو الأخذ بالعلم أن الدعم الفني في تيليجرام يقوم به مجموعة من المتطوعين. نحاول الرد سريعًا قدر الإمكان، لكن ذلك قد يستغرق بعض الوقت.\n\nيرجى الإطلاع على<![CDATA[<a href=\"https://telegram.org/faq/ar#a\"> الأسئلة الشائعة عن تيليجرام</a>]]> فهي تحوي إجابات لمعظم الأسئلة  <![CDATA[<a href=\"https://telegram.org/faq/ar#j\">وحلولًا للعديد من المشاكل.</a>]]></string>
     <string name="AskButton">اسأل متطوعًا</string>
-    <string name="TelegramFAQ">الأسئلة الشائعة</string>
-    <string name="TelegramFaq">الأسئلة الشائعة</string>
-    <string name="TelegramFeatures">ميزات تيليجرام</string>
-    <string name="TelegramFeaturesUrl">https://t.me/TelegramTipsAR/128</string>
+    <string name="星聊FAQ">الأسئلة الشائعة</string>
+    <string name="星聊Faq">الأسئلة الشائعة</string>
+    <string name="星聊Features">ميزات تيليجرام</string>
+    <string name="星聊FeaturesUrl">https://t.me/TelegramTipsAR/128</string>
     <string name="AddAccount">إضافة حساب</string>
     <string name="SelectAccount">اختيار حساب</string>
-    <string name="TelegramFaqUrl">https://telegram.org/faq/ar</string>
+    <string name="星聊FaqUrl">https://telegram.org/faq/ar</string>
     <string name="PrivacyPolicy">سياسة الخصوصية</string>
     <string name="TermsOfService">شروط الخدمة</string>
     <string name="TermsOfServiceLogin">عبر تسجيلك\nأنت توافق على *شروط الخدمة*.</string>
@@ -2026,7 +2026,7 @@
     <string name="Emoji">الرموز التعبيرية</string>
     <string name="LargeEmoji">رموز تعبيرية كبيرة</string>
     <string name="EmojiUseDefault">استخدم الرموز التعبيرية الافتراضية</string>
-    <string name="TelegramVersion">تيليجرام للأندرويد %1$s</string>
+    <string name="星聊Version">تيليجرام للأندرويد %1$s</string>
     <string name="DebugMenu">قائمة المعالجة</string>
     <string name="DebugSendLogs">إرسال السجلات</string>
     <string name="DebugSendLastLogs">إرسال أحدث السجلات</string>
@@ -2193,17 +2193,17 @@
     <string name="AudioAutodownload">الرسائل الصوتية</string>
     <string name="VideoMessagesAutodownload">الرسائل المرئية</string>
     <!--passport view-->
-    <string name="TelegramPassport">جواز تيليجرام</string>
+    <string name="星聊Passport">جواز تيليجرام</string>
     <string name="PassportRequestedInformation">المعلومات المطلوبة</string>
     <string name="PassportProvidedInformation">المعلومات المضافة</string>
     <string name="PassportInfoTitle">ماهو جواز تيليجرام؟</string>
     <string name="PassportInfo2">مع جواز تيليجرام يمْكنك التسجيل في المواقع والخدمات التي تتطلب توثيق الهوية الشخصية بسهولة.\n\nمعلوماتك، بياناتك الشخصية ووثائقك محمية ومشفرة من البداية للنهاية، لا أحد بما فيهم تيليجرام ذاتُه يمكنه الوصول إليها دون إذنك. \n\nلمزيد من التفاصيل يمكنك زيارة *الأسئلة الشائعة*.</string>
     <string name="PassportInfoUrl">https://telegram.org/faq/ar#i7</string>
-    <string name="TelegramPassportCreatePasswordInfo">"يرجى إنشاء كلمة مرور لحماية بياناتك الشخصية باستخدام التشفير من البداية للنهاية.\n\nستُطلب كلمة المرور هذه في كل مرة تقوم فيها بتسجيل الدخول لجهازٍ جديد. "</string>
-    <string name="TelegramPassportCreatePassword">إنشاء كلمة مرور</string>
-    <string name="TelegramPassportDelete">حذف جواز تيليجرام</string>
-    <string name="TelegramPassportDeleteTitle">حذف جواز تيليجرام</string>
-    <string name="TelegramPassportDeleteAlert">هل ترغب حقًا في حذف جواز تيليجرام الخاص بك؟</string>
+    <string name="星聊PassportCreatePasswordInfo">"يرجى إنشاء كلمة مرور لحماية بياناتك الشخصية باستخدام التشفير من البداية للنهاية.\n\nستُطلب كلمة المرور هذه في كل مرة تقوم فيها بتسجيل الدخول لجهازٍ جديد. "</string>
+    <string name="星聊PassportCreatePassword">إنشاء كلمة مرور</string>
+    <string name="星聊PassportDelete">حذف جواز تيليجرام</string>
+    <string name="星聊PassportDeleteTitle">حذف جواز تيليجرام</string>
+    <string name="星聊PassportDeleteAlert">هل ترغب حقًا في حذف جواز تيليجرام الخاص بك؟</string>
     <string name="PassportUseLatinOnly">يرجى استخدام الأحرف اللاتينية فقط</string>
     <string name="PassportAddPassportInfo">قم برفع نسخ ترجمة موثّقة عن جواز سفرك.</string>
     <string name="PassportAddInternalPassportInfo">قم برفع نسخ ترجمة إنجليزية موثّقة عن جوازك الداخلي.</string>
@@ -3305,7 +3305,7 @@
     <string name="SharesPerPost">المشاركات لكل منشور</string>
     <string name="EnabledNotifications">مكّنوا الإشعارات</string>
     <string name="ClearLocalDatabase">مسح قاعدة البيانات المحلية</string>
-    <string name="TelegramCacheSize">%s ذاكرة تيليجرام المؤقتة</string>
+    <string name="星聊CacheSize">%s ذاكرة تيليجرام المؤقتة</string>
     <string name="LocalDatabaseSize">%s قاعدة بيانات تيليجرام المحلية</string>
     <string name="CacheWasCleared">تم تحرير %s من جهازك!</string>
     <string name="TotalDeviceSize">%s تطبيقات أخرى</string>
@@ -3761,12 +3761,12 @@
     <string name="OnlineCount_few">%1$d متصلين</string>
     <string name="OnlineCount_many">%1$d متصلا</string>
     <string name="OnlineCount_other">%1$d متصل</string>
-    <string name="TelegramContacts_zero">لا يوجد جهات اتصال على تيليجرام</string>
-    <string name="TelegramContacts_one">جهة اتصال واحدة على تيليجرام</string>
-    <string name="TelegramContacts_two">جهتا اتصال على تيليجرام</string>
-    <string name="TelegramContacts_few">%1$d جهات اتصال على تيليجرام</string>
-    <string name="TelegramContacts_many">%1$d جهة اتصال على تيليجرام</string>
-    <string name="TelegramContacts_other">%1$d جهة اتصال على تيليجرام</string>
+    <string name="星聊Contacts_zero">لا يوجد جهات اتصال على تيليجرام</string>
+    <string name="星聊Contacts_one">جهة اتصال واحدة على تيليجرام</string>
+    <string name="星聊Contacts_two">جهتا اتصال على تيليجرام</string>
+    <string name="星聊Contacts_few">%1$d جهات اتصال على تيليجرام</string>
+    <string name="星聊Contacts_many">%1$d جهة اتصال على تيليجرام</string>
+    <string name="星聊Contacts_other">%1$d جهة اتصال على تيليجرام</string>
     <string name="InviteTextNum_zero">"مرحبا، أنا أستخدم تيليجرام للمحادثة - يمكنك تنزيله من هنا: %2$s "</string>
     <string name="InviteTextNum_one">"مرحبا، أنا وإحدى جهات اتصالي نستخدم تيليجرام للمحادثة - يمكنك تنزيله من هنا: %2$s "</string>
     <string name="InviteTextNum_two">"مرحبا، أنا و%1$d من جهات اتصالي نستخدم تيليجرام للمحادثة - يمكنك تنزيله من هنا: %2$s "</string>

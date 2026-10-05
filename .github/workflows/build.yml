@@ -1,0 +1,98 @@
+name: Build StarChat APK
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    env:
+      NDK: ${{ github.workspace }}/ndk
+      NINJA_PATH: /usr/bin/ninja
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Install build tools (ccache, ninja, Go)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ccache ninja-build golang
+          ccache --max-size=2G
+          echo "CCACHE_DIR=$HOME/.ccache" >> "$GITHUB_ENV"
+
+      - name: Restore ccache cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.ccache
+          key: ccache-${{ github.sha }}
+          restore-keys: |
+            ccache-
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
+
+      - name: Set up Android SDK / NDK / CMake
+        uses: android-actions/setup-android@v3
+        with:
+          packages: |
+            platforms;android-33
+            build-tools;33.0.0
+            build-tools;30.0.3
+            ndk;21.4.7075529
+            cmake;3.10.2.4988404
+
+      - name: Point NDK path and restore legacy dx
+        run: |
+          ln -sfn "$ANDROID_HOME/ndk/21.4.7075529" "$NDK"
+          cp "$ANDROID_HOME/build-tools/30.0.3/dx" "$ANDROID_HOME/build-tools/33.0.0/dx"
+          cp "$ANDROID_HOME/build-tools/30.0.3/lib/dx.jar" "$ANDROID_HOME/build-tools/33.0.0/lib/dx.jar"
+
+      - name: Initialize native submodules (shallow)
+        run: |
+          git submodule update --init --depth 1 \
+            TMessagesProj/jni/libwebp \
+            TMessagesProj/jni/boringssl \
+            TMessagesProj/jni/libvpx \
+            TMessagesProj/jni/ffmpeg \
+          || git submodule update --init \
+            TMessagesProj/jni/libwebp \
+            TMessagesProj/jni/boringssl \
+            TMessagesProj/jni/libvpx \
+            TMessagesProj/jni/ffmpeg
+
+      - name: Build native dependencies (arm64-v8a)
+        run: |
+          cd TMessagesProj/jni
+          ccache -z || true
+          bash ./build_libvpx_clang.sh arm64
+          bash ./build_ffmpeg_clang.sh arm64
+          bash ./patch_ffmpeg.sh
+          bash ./patch_boringssl.sh
+          bash ./build_boringssl.sh arm64
+          ccache -s || true
+
+      - name: Build StarChat debug APK
+        run: |
+          ./gradlew :TMessagesProj_App:assembleAfatDebug --stacktrace --no-daemon
+
+      - name: Stage APK
+        run: |
+          mkdir -p artifact
+          cp TMessagesProj_App/build/outputs/apk/afat/debug/app.apk artifact/StarChat.apk
+          ls -la artifact/
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: StarChat-apk
+          path: artifact/StarChat.apk
+          if-no-files-found: error
+          retention-days: 30

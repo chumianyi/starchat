@@ -343,11 +343,13 @@ public class DrawerLayoutAdapter extends RecyclerListView.SelectionAdapter {
         if (showDivider) {
             items.add(null); // divider
         }
+        items.add(new Item(20, "星聊 AI 助手", R.drawable.msg_bot));
         items.add(new Item(2, LocaleController.getString("NewGroup", R.string.NewGroup), newGroupIcon));
         //items.add(new Item(3, LocaleController.getString("NewSecretChat", R.string.NewSecretChat), newSecretIcon));
         //items.add(new Item(4, LocaleController.getString("NewChannel", R.string.NewChannel), newChannelIcon));
         items.add(new Item(6, LocaleController.getString("Contacts", R.string.Contacts), contactsIcon));
-        items.add(new Item(10, LocaleController.getString("Calls", R.string.Calls), callsIcon));
+        // Calls removed in StarChat: no Calls entry in the drawer.
+        //items.add(new Item(10, LocaleController.getString("Calls", R.string.Calls), callsIcon));
         if (hasGps) {
             items.add(new Item(12, LocaleController.getString("PeopleNearby", R.string.PeopleNearby), peopleNearbyIcon));
         }

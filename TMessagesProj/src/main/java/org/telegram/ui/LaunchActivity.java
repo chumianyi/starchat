@@ -591,7 +591,10 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                     }
                     return;
                 }
-                if (id == 2) {
+                if (id == 20) {
+                    startActivity(new Intent(LaunchActivity.this, StarChatAIActivity.class));
+                    drawerLayoutContainer.closeDrawer(false);
+                } else if (id == 2) {
                     Bundle args = new Bundle();
                     presentFragment(new GroupCreateActivity(args));
                     drawerLayoutContainer.closeDrawer(false);

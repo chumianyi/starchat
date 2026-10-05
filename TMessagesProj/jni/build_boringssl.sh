@@ -14,6 +14,7 @@ function build_one {
 	-DANDROID_NDK=${NDK} \
 	-DCMAKE_TOOLCHAIN_FILE=${NDK}/build/cmake/android.toolchain.cmake \
 	-GNinja -DCMAKE_MAKE_PROGRAM=${NINJA_PATH} \
+	-DCMAKE_C_COMPILER_LAUNCHER=ccache -DCMAKE_CXX_COMPILER_LAUNCHER=ccache \
 	../..
 
 	echo "Building..."

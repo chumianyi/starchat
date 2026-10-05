@@ -3878,17 +3878,9 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                 if (Build.VERSION.SDK_INT >= 18) {
                     headerItem.lazilyAddSubItem(video_call, R.drawable.msg_videocall, LocaleController.getString("VideoCall", R.string.VideoCall));
                 }
-                if (userFull != null && userFull.phone_calls_available) {
-                    headerItem.showSubItem(call);
-                    if (userFull.video_calls_available) {
-                        headerItem.showSubItem(video_call);
-                    } else {
-                        headerItem.hideSubItem(video_call);
-                    }
-                } else {
-                    headerItem.hideSubItem(call);
-                    headerItem.hideSubItem(video_call);
-                }
+                // Calls removed in StarChat: always hide call entries.
+                headerItem.hideSubItem(call);
+                headerItem.hideSubItem(video_call);
             }
 
             if (searchItem != null) {
@@ -7009,9 +7001,9 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
             fragmentContextView.setEnabled(!inPreviewMode);
             fragmentLocationContextView.setEnabled(!inPreviewMode);
 
-            if (chatMode != 0) {
-                fragmentContextView.setSupportsCalls(false);
-            }
+            // Calls removed in StarChat: never show the group-call join bar.
+            fragmentContextView.setSupportsCalls(false);
+            fragmentLocationContextView.setSupportsCalls(false);
         }
 
         messagesSearchListContainer = new FrameLayout(context);
@@ -27820,39 +27812,8 @@ public class ChatActivity extends BaseFragment implements NotificationCenter.Not
                 }), ConnectionsManager.RequestFlagFailOnServerErrors);
                 return true;
             } else if (message.messageOwner.action instanceof TLRPC.TL_messageActionGroupCall || message.messageOwner.action instanceof TLRPC.TL_messageActionInviteToGroupCall || message.messageOwner.action instanceof TLRPC.TL_messageActionGroupCallScheduled) {
-                if (getParentActivity() == null) {
-                    return false;
-                }
-                VoIPService sharedInstance = VoIPService.getSharedInstance();
-                if (sharedInstance != null) {
-                    if (sharedInstance.groupCall != null && message.messageOwner.action.call.id == sharedInstance.groupCall.call.id) {
-                        if (getParentActivity() instanceof LaunchActivity) {
-                            GroupCallActivity.create((LaunchActivity) getParentActivity(), AccountInstance.getInstance(currentAccount), null, null, false, null);
-                        } else {
-                            Intent intent = new Intent(getParentActivity(), LaunchActivity.class).setAction("voip_chat");
-                            intent.putExtra("currentAccount", VoIPService.getSharedInstance().getAccount());
-                            getParentActivity().startActivity(intent);
-                        }
-                    } else {
-                        createGroupCall = getGroupCall() == null;
-                        VoIPHelper.startCall(currentChat, null, null, createGroupCall, getParentActivity(), ChatActivity.this, getAccountInstance());
-                    }
-                    return true;
-                } else if (fragmentContextView != null && getGroupCall() != null) {
-                    if (VoIPService.getSharedInstance() != null) {
-                        GroupCallActivity.create((LaunchActivity) getParentActivity(), AccountInstance.getInstance(VoIPService.getSharedInstance().getAccount()), null, null, false, null);
-                    } else {
-                        ChatObject.Call call = getGroupCall();
-                        if (call == null) {
-                            return false;
-                        }
-                        VoIPHelper.startCall(getMessagesController().getChat(call.chatId), null, null, false, getParentActivity(), ChatActivity.this, getAccountInstance());
-                    }
-                    return true;
-                } else if (ChatObject.canManageCalls(currentChat)) {
-                    VoIPHelper.showGroupCallAlert(ChatActivity.this, currentChat, null, true, getAccountInstance());
-                    return true;
-                }
+                // Voice/video chats removed in StarChat: service messages are inert.
+                return true;
             } else if (message.messageOwner.action instanceof TLRPC.TL_messageActionSetChatTheme) {
                 showChatThemeBottomSheet();
                 return true;

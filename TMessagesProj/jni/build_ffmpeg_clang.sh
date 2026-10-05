@@ -15,8 +15,8 @@ function build_one {
 
 	CC_PREFIX="${LLVM_BIN}/${CLANG_PREFIX}-linux-${BIN_MIDDLE}${ANDROID_API}-"
 
-	CC=${CC_PREFIX}clang
-	CXX=${CC_PREFIX}clang++
+	CC="ccache ${CC_PREFIX}clang"
+	CXX="ccache ${CC_PREFIX}clang++"
 	CROSS_PREFIX=${PREBUILT}/bin/${ARCH_NAME}-linux-${BIN_MIDDLE}-
 	
 	INCLUDES=" -I${LIBVPXPREFIX}/include"

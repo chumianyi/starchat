@@ -16,8 +16,8 @@ function build_one {
 
 	export CC_PREFIX="${LLVM_BIN}/${CLANG_PREFIX}-linux-${BIN_MIDDLE}${ANDROID_API}-"
 
-	export CC=${CC_PREFIX}clang
-	export CXX=${CC_PREFIX}clang++
+	export CC="ccache ${CC_PREFIX}clang"
+	export CXX="ccache ${CC_PREFIX}clang++"
 	export AS=${CC_PREFIX}clang++
 	export CROSS_PREFIX=${PREBUILT}/bin/${ARCH_NAME}-linux-${BIN_MIDDLE}-
 	
