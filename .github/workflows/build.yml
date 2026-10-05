@@ -21,7 +21,7 @@ jobs:
       - name: Install build tools (ccache, ninja, Go)
         run: |
           sudo apt-get update
-          sudo apt-get install -y ccache ninja-build golang
+          sudo apt-get install -y ccache ninja-build golang yasm
           ccache --max-size=2G
           echo "CCACHE_DIR=$HOME/.ccache" >> "$GITHUB_ENV"
 
@@ -52,6 +52,8 @@ jobs:
       - name: Point NDK path and restore legacy dx
         run: |
           ln -sfn "$ANDROID_HOME/ndk/21.4.7075529" "$NDK"
+          mkdir -p "$NDK/prebuilt/linux-x86_64/bin"
+          ln -sf /usr/bin/yasm "$NDK/prebuilt/linux-x86_64/bin/yasm"
           cp "$ANDROID_HOME/build-tools/30.0.3/dx" "$ANDROID_HOME/build-tools/33.0.0/dx"
           cp "$ANDROID_HOME/build-tools/30.0.3/lib/dx.jar" "$ANDROID_HOME/build-tools/33.0.0/lib/dx.jar"
 
