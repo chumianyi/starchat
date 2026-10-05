@@ -2488,7 +2488,7 @@ YueWu 团队</string>
     <string name="LanguageUnsupportedError">没有这种语言。</string>
     <string name="LanguageSame">你已经在使用这个语言包（**%1$s**）。你随时可以在设置更改你的语言包。</string>
     <string name="LanguageUnknownCustomAlert">很遗憾，这个自定义语言包（**%1$s**）不包含 YueWu Android 的数据。</string>
-    <string name="AskAQuestionInfo">Please note that YueWu Support is done by volunteers. We try to respond as quickly as possible, but it may take a while.\n\nPlease take a look at the <![CDATA[<a href=\"https://telegram.org/faq#general-questions\">YueWu FAQ</a>]]>: it has answers to most questions and important tips for <![CDATA[<a href=\"https://telegram.org/faq#troubleshooting\">troubleshooting</a>]]>.</string>
+    <string name="AskAQuestionInfo">Please note that YueWu Support is done by volunteers. We try to respond as quickly as possible, but it may take a while.\n\nPlease take a look at the &lt;a href=\"https://telegram.org/faq#general-questions\"&gt;YueWu FAQ&lt;/a&gt;: it has answers to most questions and important tips for &lt;a href=\"https://telegram.org/faq#troubleshooting\"&gt;troubleshooting&lt;/a&gt;.</string>
     <string name="AskButton">向志愿者提问</string>
     <string name="TelegramFAQ">YueWu 常见问题</string>
     <string name="TelegramFaq">YueWu 常见问题</string>
@@ -6378,7 +6378,7 @@ YueWu 团队</string>
     <string name="LimitReachedPinSavedDialogsPremium">抱歉，您不能将超过 %1$d 场聊天固定到顶部。请取消固定一些当前已固定的聊天。</string>
     <string name="LimitReachedPinSavedDialogsLocked">抱歉，您不能将超过 %1$d 个聊天置顶到顶部。请先取消置顶一些当前置顶的聊天。我们正在努力在未来增加此限制。</string>
     <string name="LastActiveCommunities">最近活跃的社区</string>
-    <string name="ChatsLeaveAlert"><![CDATA[>Are you sure you want to leave the selected chats?]]></string>
+    <string name="ChatsLeaveAlert">&gt;Are you sure you want to leave the selected chats?</string>
     <string name="PremiumPreviewReactionsDescription">此功能仅对付费版订阅者提供附加的动画表情。</string>
     <string name="PremiumPreviewAdvancedChatManagementDescription">工具，用于设置默认文件夹、自动归档和隐藏非联系人的新聊天。</string>
     <string name="PremiumPreviewAdvancedChatManagementDescription2">订阅 YueWu 付费版的用户可以设置默认文件夹、自动归档和隐藏非好友的新聊天。</string>
@@ -6767,7 +6767,7 @@ YueWu 团队</string>
     <string name="SessionsSettingsInfo">查看登录您的 YueWu 账号的所有设备列表。</string>
     <string name="SendMediaPermissionPhotos">照片</string>
     <string name="SendMediaPermissionVideos">视频</string>
-    <string name="SendMediaPermissionStickersGifs">&lt;![CDATA[贴纸 &amp; 动态贴图]]&gt;</string>
+    <string name="SendMediaPermissionStickersGifs">贴纸 &amp; 动态贴图</string>
     <string name="SendMediaPermissionMusic">音乐</string>
     <string name="SendMediaPermissionFiles">文件</string>
     <string name="SendMediaPermissionVoice">Voice Messages</string>
