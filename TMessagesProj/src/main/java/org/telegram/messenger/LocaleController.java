@@ -607,6 +607,16 @@ public class LocaleController {
         languages.add(localeInfo);
         languagesDict.put(localeInfo.shortName, localeInfo);
 
+        localeInfo = new LocaleInfo();
+        localeInfo.name = "简体中文";
+        localeInfo.nameEnglish = "Chinese (Simplified)";
+        localeInfo.shortName = "zh_cn";
+        localeInfo.pluralLangCode = "zh_cn";
+        localeInfo.pathToFile = null;
+        localeInfo.builtIn = true;
+        languages.add(localeInfo);
+        languagesDict.put(localeInfo.shortName, localeInfo);
+
         loadOtherLanguages();
         if (remoteLanguages.isEmpty()) {
             AndroidUtilities.runOnUIThread(() -> loadRemoteLanguages(UserConfig.selectedAccount));
@@ -653,26 +663,12 @@ public class LocaleController {
         boolean override = false;
 
         try {
-            SharedPreferences preferences = MessagesController.getGlobalMainSettings();
-            String lang = preferences.getString("language", null);
-            if (lang != null) {
-                currentInfo = getLanguageFromDict(lang);
-                if (currentInfo != null) {
-                    override = true;
-                }
-            }
-
-            if (currentInfo == null && systemDefaultLocale.getLanguage() != null) {
-                currentInfo = getLanguageFromDict(systemDefaultLocale.getLanguage());
-            }
+            // Yuewu: the app is Simplified-Chinese only. Always force zh_cn.
+            currentInfo = getLanguageFromDict("zh_cn");
             if (currentInfo == null) {
-                currentInfo = getLanguageFromDict(getLocaleString(systemDefaultLocale));
-                if (currentInfo == null) {
-                    currentInfo = getLanguageFromDict("en");
-                }
+                currentInfo = getLanguageFromDict("en");
             }
-
-            applyLanguage(currentInfo, override, true, UserConfig.selectedAccount);
+            applyLanguage(currentInfo, true, true, UserConfig.selectedAccount);
         } catch (Exception e) {
             FileLog.e(e);
         }
