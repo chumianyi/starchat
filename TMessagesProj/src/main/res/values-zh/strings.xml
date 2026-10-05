@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="AppName">星聊</string>
+    <string name="AppNameBeta">星聊 Beta</string>
+
+    <string name="NoChats">欢迎使用星聊</string>
+    <string name="WaitingForNetwork">等待网络连接…</string>
+    <string name="Connecting">连接中…</string>
+    <string name="Updating">更新中…</string>
+
+    <string name="Settings">设置</string>
+    <string name="Contacts">联系人</string>
+    <string name="NewGroup">新建群组</string>
+    <string name="NewChannel">新建频道</string>
+    <string name="NewMessage">新建消息</string>
+    <string name="NewSecretChat">新建加密聊天</string>
+    <string name="SavedMessages">收藏夹</string>
+    <string name="InviteFriends">邀请好友</string>
+    <string name="AddAccount">添加账号</string>
+
+    <string name="Archive">归档</string>
+    <string name="ArchivedChats">已归档对话</string>
+    <string name="Search">搜索</string>
+    <string name="Calls">通话</string>
+
+    <string name="Online">在线</string>
+    <string name="Bot">机器人</string>
+
+    <string name="Reply">回复</string>
+    <string name="Forward">转发</string>
+    <string name="Copy">复制</string>
+    <string name="Share">分享</string>
+    <string name="Edit">编辑</string>
+    <string name="Delete">删除</string>
+    <string name="Save">保存</string>
+    <string name="Cancel">取消</string>
+    <string name="Done">完成</string>
+    <string name="Send">发送</string>
+
+    <string name="Username">用户名</string>
+    <string name="Poll">投票</string>
+    <string name="Voice">语音</string>
+
+    <string name="About">关于星聊</string>
+    <string name="Help">帮助</string>
+    <string name="FAQ">常见问题</string>
+
+    <string name="ChatList">对话列表视图</string>
+    <string name="Members">成员</string>
+    <string name="Subscribers">订阅者</string>
+    <string name="Admin">管理员</string>
+
+    <string name="Photo">图片</string>
+    <string name="Video">视频</string>
+    <string name="File">文件</string>
+
+    <string name="ContactsPermissionAlert">**星聊**需要访问您的联系人，以便您在所有设备上与好友保持联系。您的联系人将持续同步到星聊的高强度加密云服务器。</string>
+    <string name="NotificationsPermissionAlertSubtitle">请允许星聊发送通知，以便与您的亲友保持联系。</string>
+    <string name="YourContacts">您在星聊上的联系人</string>
+
+    <string name="AiAssistant">AI 助手</string>
+    <string name="AiAssistantStatus">在线 · DeepSeek-R1 驱动</string>
+    <string name="AiInputHint">发送消息</string>
+    <string name="AiWelcome">你好！我是你的 AI 助手，有什么可以帮你的吗？</string>
+    <string name="AiThinking">思考过程</string>
+    <string name="AiThinkingCollapsed">思考过程（点击展开）</string>
+    <string name="AiError">网络错误，点击本条消息重试。</string>
+    <string name="AiClearChat">清空对话</string>
+    <string name="AiThinkingDone">思考了 %1$s</string>
+</resources>
