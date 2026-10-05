@@ -290,7 +290,7 @@ public class ApplicationLoader extends Application {
         } catch (Exception e) {
             FileLog.e(e);
         }
-        org.osmdroid.config.Configuration.getInstance().setUserAgentValue("StarChat "+VERSIONNAME);
+        org.osmdroid.config.Configuration.getInstance().setUserAgentValue("YueWu "+VERSIONNAME);
         org.osmdroid.config.Configuration.getInstance().setOsmdroidBasePath(new File(getCacheDir(),"osmdroid"));
     }
 

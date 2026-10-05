@@ -560,7 +560,9 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
                     freeAccounts -= (UserConfig.MAX_ACCOUNT_COUNT - UserConfig.MAX_ACCOUNT_DEFAULT_COUNT);
                 }
                 if (freeAccounts > 0 && availableAccount != null) {
-                    presentFragment(new LoginActivity(availableAccount));
+                    // Yuewu: account management happens on the dpsk server; open the AI chat.
+                    Intent aiIntent = new Intent(this, StarChatAIActivity.class);
+                    startActivity(aiIntent);
                     drawerLayoutContainer.closeDrawer(false);
                 } else if (!UserConfig.hasPremiumOnAccounts()) {
                     if (actionBarLayout.getFragmentStack().size() > 0) {
@@ -840,8 +842,12 @@ public class LaunchActivity extends BasePermissionsActivity implements INavigati
         LiteMode.addOnPowerSaverAppliedListener(this::onPowerSaver);
         if (actionBarLayout.getFragmentStack().isEmpty() && (layersActionBarLayout == null || layersActionBarLayout.getFragmentStack().isEmpty())) {
             if (!UserConfig.getInstance(currentAccount).isClientActivated()) {
-                actionBarLayout.addFragmentToStack(getClientNotActivatedFragment());
-                drawerLayoutContainer.setAllowOpenDrawer(false, false);
+                // Yuewu: no phone-number login. Hand off to the dpsk account screen.
+                Intent loginIntent = new Intent(this, org.telegram.messenger.DpskLoginActivity.class);
+                loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(loginIntent);
+                finish();
+                return;
             } else {
                 DialogsActivity dialogsActivity = new DialogsActivity(null);
                 dialogsActivity.setSideMenu(sideMenu);

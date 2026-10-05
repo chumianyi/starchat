@@ -1,8 +1,8 @@
-name: Build StarChat APK
+name: Build YueWu APK
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master, main ]
   workflow_dispatch:
 
 jobs:
@@ -79,20 +79,20 @@ jobs:
           bash ./build_boringssl.sh arm64
           ccache -s || true
 
-      - name: Build StarChat debug APK
+      - name: Build YueWu debug APK
         run: |
           ./gradlew :TMessagesProj_App:assembleAfatDebug --stacktrace --no-daemon
 
       - name: Stage APK
         run: |
           mkdir -p artifact
-          cp TMessagesProj_App/build/outputs/apk/afat/debug/app.apk artifact/StarChat.apk
+          cp TMessagesProj_App/build/outputs/apk/afat/debug/app.apk artifact/YueWu.apk
           ls -la artifact/
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
-          name: StarChat-apk
-          path: artifact/StarChat.apk
+          name: YueWu-apk
+          path: artifact/YueWu.apk
           if-no-files-found: error
           retention-days: 30

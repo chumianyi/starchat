@@ -1,5 +1,5 @@
 /*
- * StarChat - built-in AI assistant network client.
+ * Yuewu - built-in AI assistant network client.
  * Talks to the dpsk DeepSeek-R1 proxy over plain HTTP.
  */
 package org.telegram.messenger.ai;
@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -85,7 +86,26 @@ public class DpskClient {
         }
     }
 
-    /** Performs POST /chat with streaming enabled and parses the SSE/JSON stream. */
+    /** Performs GET /register?username=&password= and stores the session cookie. */
+    public static void registerBlocking(String user, String pass) throws Exception {
+        String q = "username=" + URLEncoder.encode(user, "UTF-8")
+                + "&password=" + URLEncoder.encode(pass, "UTF-8");
+        HttpURLConnection conn = open(BASE + "/register?" + q, "GET", false, null);
+        try {
+            int code = conn.getResponseCode();
+            String setc = combineCookies(conn);
+            String resp = readAll(code < 400 ? conn.getInputStream() : conn.getErrorStream());
+            if (code >= 400) {
+                throw new Exception("register HTTP " + code + ": " + safe(resp));
+            }
+            if (!TextUtils.isEmpty(setc)) {
+                setCookie(setc);
+            }
+        } finally {
+            conn.disconnect();
+        }
+    }
+
     public static void chatStreamBlocking(List<Msg> messages, ChatCallback cb) {
         try {
             if (TextUtils.isEmpty(getCookie())) {

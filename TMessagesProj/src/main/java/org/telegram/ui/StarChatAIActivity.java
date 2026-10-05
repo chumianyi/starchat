@@ -1,11 +1,12 @@
 /*
- * StarChat - built-in AI assistant conversation.
+ * YueWu - built-in AI assistant conversation (main chat screen).
  * Streaming chat bubbles; DeepSeek-R1 reasoning is shown folded.
  */
 package org.telegram.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
@@ -27,7 +28,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.telegram.messenger.AndroidUtilities;
+import org.telegram.messenger.DpskLoginActivity;
 import org.telegram.messenger.ai.DpskClient;
+import org.telegram.messenger.ai.DpskSession;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +39,11 @@ import java.util.concurrent.Executors;
 
 public class StarChatAIActivity extends Activity {
 
-    private static final int BRAND = Color.rgb(0x2A, 0xAB, 0xEE);
-    private static final int BRAND_DARK = Color.rgb(0x22, 0x9E, 0xD9);
+    // YueWu brand: indigo -> blue (matches the official launcher gradient).
+    private static final int BRAND = Color.rgb(0x4B, 0x5F, 0xC0);
+    private static final int BRAND_DARK = Color.rgb(0x2E, 0x3A, 0x8C);
+    private static final int C_TOP = Color.rgb(0x0F, 0x18, 0x41);
+    private static final int C_BOTTOM = Color.rgb(0x3A, 0x97, 0xC2);
     private static final int LIST_BG = Color.rgb(0xE7, 0xEB, 0xF0);
     private static final int AI_BUBBLE = Color.WHITE;
     private static final int TEXT_DARK = Color.rgb(0x17, 0x21, 0x2B);
@@ -110,7 +116,7 @@ public class StarChatAIActivity extends Activity {
 
         if (bubbles.isEmpty()) {
             Bubble greet = new Bubble(false);
-            greet.content = "你好，我是星聊 AI 助手（DeepSeek-R1）。\n有什么可以帮你的吗？";
+            greet.content = "你好，我是 YueWu AI 助手（DeepSeek-R1）。\n有什么可以帮你的吗？";
             bubbles.add(greet);
             adapter.notifyDataSetChanged();
         }
@@ -120,7 +126,10 @@ public class StarChatAIActivity extends Activity {
         LinearLayout bar = new LinearLayout(this);
         bar.setOrientation(LinearLayout.HORIZONTAL);
         bar.setGravity(Gravity.CENTER_VERTICAL);
-        bar.setBackgroundColor(BRAND);
+        GradientDrawable grad = new GradientDrawable(
+                GradientDrawable.Orientation.LEFT_RIGHT,
+                new int[]{C_TOP, BRAND, C_BOTTOM});
+        bar.setBackground(grad);
 
         TextView back = new TextView(this);
         back.setText("\u2039");
@@ -132,20 +141,20 @@ public class StarChatAIActivity extends Activity {
                 ViewGroup.LayoutParams.MATCH_PARENT));
 
         TextView title = new TextView(this);
-        title.setText("星聊 AI 助手");
+        title.setText("YueWu AI");
         title.setTextColor(Color.WHITE);
         title.setTextSize(17);
         title.setTypeface(Typeface.DEFAULT_BOLD);
         bar.addView(title, new LinearLayout.LayoutParams(0,
                 ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
 
-        TextView settings = new TextView(this);
-        settings.setText("设置");
-        settings.setTextColor(Color.WHITE);
-        settings.setTextSize(14);
-        settings.setGravity(Gravity.CENTER);
-        settings.setOnClickListener(v -> showCredentialsDialog());
-        bar.addView(settings, new LinearLayout.LayoutParams(AndroidUtilities.dp(64),
+        TextView account = new TextView(this);
+        account.setText("账号");
+        account.setTextColor(Color.WHITE);
+        account.setTextSize(14);
+        account.setGravity(Gravity.CENTER);
+        account.setOnClickListener(v -> showAccountDialog());
+        bar.addView(account, new LinearLayout.LayoutParams(AndroidUtilities.dp(64),
                 ViewGroup.LayoutParams.MATCH_PARENT));
         return bar;
     }
@@ -317,44 +326,38 @@ public class StarChatAIActivity extends Activity {
         sendButton.setAlpha(busy ? 0.5f : 1f);
     }
 
-    private void showCredentialsDialog() {
+    private void showAccountDialog() {
         LinearLayout box = new LinearLayout(this);
         box.setOrientation(LinearLayout.VERTICAL);
         int pad = AndroidUtilities.dp(20);
         box.setPadding(pad, pad, pad, 0);
-        final EditText u = new EditText(this);
-        u.setHint("用户名");
-        u.setText(getUser());
-        final EditText p = new EditText(this);
-        p.setHint("密码");
-        p.setText(getPass());
-        box.addView(u);
-        box.addView(p);
+        TextView info = new TextView(this);
+        info.setText("当前账号：" + getUser() + "\n服务器：YueWu（dpsk）");
+        info.setTextSize(15);
+        box.addView(info);
         new AlertDialog.Builder(this)
-                .setTitle("AI 服务账号")
+                .setTitle("YueWu 账号")
                 .setView(box)
-                .setPositiveButton("保存", (d, w) -> {
-                    getPrefs().edit()
-                            .putString("user", u.getText().toString().trim())
-                            .putString("pass", p.getText().toString().trim())
-                            .apply();
-                    DpskClient.setCookie(null);
-                    Toast.makeText(this, "已保存，将重新登录", Toast.LENGTH_SHORT).show();
-                })
-                .setNegativeButton("取消", null)
+                .setPositiveButton("退出登录", (d, w) -> logout())
+                .setNegativeButton("关闭", null)
                 .show();
     }
 
-    private android.content.SharedPreferences getPrefs() {
-        return getSharedPreferences("dpsk", MODE_PRIVATE);
+    private void logout() {
+        DpskSession.clear(this);
+        Toast.makeText(this, "已退出登录", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, DpskLoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 
     private String getUser() {
-        return getPrefs().getString("user", "starchat");
+        return DpskSession.getUser(this);
     }
 
     private String getPass() {
-        return getPrefs().getString("pass", "starchat");
+        return DpskSession.getPassword(this);
     }
 
     private static String msg(Exception e) {
